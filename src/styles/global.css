@@ -68,16 +68,18 @@ article time { display: block; margin: -1rem 0 2rem; }
 
 /* 홈 Projects 카드: 넓은 화면에서 5열, 세로는 사진 자리의 0.8배(180px). 위 회색 그림, 아래 설명 박스 */
 .project-cards { list-style: none; padding: 0.5rem 0; margin: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1rem; }
-.project-cards li { height: 180px; overflow: hidden; box-sizing: border-box; border: 1px solid var(--line); display: flex; flex-direction: column; }
+.project-cards li { box-sizing: border-box; border: 1px solid var(--line); display: flex; flex-direction: column; }
 @media (max-width: 640px) {
   .project-cards { display: flex; overflow-x: auto; }
   .project-cards li { flex: 0 0 180px; }
+  .project-cards li > * { flex-shrink: 0; }
 }
 .project-cards a { display: flex; flex-direction: column; flex: 1; min-height: 0; color: inherit; text-decoration: none; }
-/* 그림 높이는 고정, 제목 줄 수가 달라도 그림 크기는 같게 */
-.project-image { flex: 0 0 80px; background: var(--placeholder); border-bottom: 1px solid var(--line); }
-.project-copy { flex: 1; padding: 10px 12px; background: var(--surface-alt); }
+/* 그림 높이는 고정(112px, 처음 80px의 1.4배), 제목 줄 수가 달라도 그림 크기는 같게. 그림은 연한 회색, 글은 흰 배경 */
+.project-image { flex: 0 0 112px; background: var(--surface-alt); border-bottom: 1px solid var(--line); }
+.project-copy { flex: 1; display: flex; flex-direction: column; padding: 10px 12px; background: var(--bg); }
 .project-title { display: block; font-size: 0.8rem; line-height: 1.25; }
 /* 소제목은 날짜와 같은 글씨 */
 .project-subtitle { display: block; color: var(--muted); font-size: 0.75rem; line-height: 1.3; margin-top: 0.15rem; }
-.project-copy .period { margin-top: 0.75rem; }
+/* 날짜는 카드 아래쪽에 붙임. 위 글과는 최소 .75rem */
+.project-copy .period { margin-top: auto; padding-top: 0.75rem; }
