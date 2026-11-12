@@ -1,6 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-const pubs = await getCollection('publications');
+const pubs = (await getCollection('publications')).sort((x, y) => x.id.localeCompare(y.id));
 ---
 {pubs.length > 0 && (
   <section>

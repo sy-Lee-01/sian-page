@@ -1,60 +1,60 @@
-- id: act-1
+- id: act-001
   section: Education
   period: 2020–2025
   text: B.E., DGIST (Mechanical Engineering track)
   description: Mechanics, automatic control and creative mechanical design, plus
     design thinking and UX design courses.
-- id: act-2
+- id: act-002
   section: Education
   period: "2025"
   text: Exchange Student, Department of Design, UNIST
   description: Senior courses in service design, human-centered AI and design, and
     ambient design. Dean's List.
-- id: act-3
+- id: act-003
   section: Research
   period: 2026.01–2026.02
   text: Generative UI Research Intern (U-WURF), EXPC Lab, UNIST
-- id: act-4
+- id: act-004
   section: Research
   period: 2023.11–2024.11
   text: Research Lead, DepThink, DGIST Undergraduate Group Research Program
   description: Led a 5-person study on using spatial depth in mixed reality to
     support thinking. Built Apple Vision Pro software for exploring, organizing
     and expanding ideas in 3D space, and evaluated it against a 2D setup.
-- id: act-5
+- id: act-005
   section: Research
   period: 2021.06–2022.01
   text: Undergraduate Researcher, Bio-microrobotics Lab, DGIST
   description: Assisted design research on bio-microrobots.
-- id: act-6
+- id: act-006
   section: Experience
   period: 2026.03–2026.12 (expected)
   text: Learner (5th cohort), Apple Developer Academy @ POSTECH
   description: "Final challenge: helping liver surgeons with surgical planning,
     from UX to the technical solution."
-- id: act-7
+- id: act-007
   section: Experience
   period: 2024.12–2025.02
   text: Intern, BROZ
   description: Planned business content built on 3D space-scanning technology.
-- id: act-8
+- id: act-008
   section: Experience
   period: 2024.09–2025.07
   text: Global Campus Leader, Notion
   description: "Made and shared templates and ran campus coffee chats.
     Co-organized the 2025 Notion Community Meetup in Daegu: designed and
     facilitated a networking program for 50 participants (92% satisfaction)."
-- id: act-9
+- id: act-009
   section: Experience
   period: 2024.03–2025.03
   text: Research Leader, IDHERE
   description: R&D on spatial-computing software for knowledge work, alongside the
     DepThink study.
-- id: act-10
+- id: act-010
   section: Projects
   period: 2026.09–2026.11
   text: "MoonLiver: 3D Surgical Planning Solution"
-- id: act-11
+- id: act-011
   section: Projects
   period: 2025.03–2025.06
   text: Designing Empathy for Collaboration, UNIST Human-Centered AI and Design
@@ -62,7 +62,7 @@
     could be misread, one notices when a teammate is stuck and suggests how to
     start. Demoed in Figma and Slack. Team of 3; idea, data model, system design
     and development."
-- id: act-12
+- id: act-012
   section: Awards
   period: "2025.07"
   text: Grand Prize (1st), KAIST Graffiti 2025 Hackathon

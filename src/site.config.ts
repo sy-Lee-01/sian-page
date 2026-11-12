@@ -3,6 +3,7 @@ import sectionsJson from './sections.json';
 
 export const site = {
   name: 'Sian',
+  fullName: 'Seoyeon Lee | 이서연',
   description: 'HCI researcher studying how people work with generative AI.',
   links: [
     { label: 'Email', href: 'mailto:hello@example.com' },

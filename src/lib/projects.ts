@@ -2,6 +2,7 @@ import { getCollection } from 'astro:content';
 import { url } from './url';
 
 // 카드는 me/records/projects.md 한 줄씩. 상세 본문은 같은 slug의 kind: project 노트 (없으면 카드 정보만)
+// slug 규칙은 scripts/publish.mjs의 projectSlug와 같게 둔다
 export const projectSlug = (title: string) =>
   title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 

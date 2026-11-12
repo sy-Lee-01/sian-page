@@ -14,7 +14,7 @@ const Content = project.note ? (await render(project.note)).Content : null;
 <Base lang="en" title={project.title}>
   <article>
     <h1>{project.title}</h1>
-    {project.subtitle && <p class="project-subtitle">{project.subtitle}</p>}
+    {project.subtitle && <span class="project-subtitle">{project.subtitle}</span>}
     <span class="period">{project.period}</span>
     {Content && <Content />}
   </article>

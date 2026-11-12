@@ -162,6 +162,9 @@ function readRecord(name, expected) {
 
 const LINK_AT_END = /\s*\[[^\]]*\]\((\S+)\)$/;
 
+// 레코드 id는 자릿수를 맞춘다 (act-10이 act-2보다 앞에 정렬되지 않도록)
+const recordId = (prefix, n) => `${prefix}-${String(n).padStart(3, '0')}`;
+
 const publications = [];
 for (const { line, at } of readRecord('publications', 'publications')) {
   const m = line.match(/^- \[(.+?)\]\((\S+?)\) — (.+) · (.+)$/);
@@ -169,7 +172,27 @@ for (const { line, at } of readRecord('publications', 'publications')) {
     fail(at, `형식이 맞지 않습니다. 예: - [Title](https://...) — One-line description. · CHI 2026`);
     continue;
   }
-  publications.push({ id: `pub-${publications.length + 1}`, title: m[1], link: m[2], description: m[3], venue: m[4] });
+  publications.push({ id: recordId('pub', publications.length + 1), title: m[1], link: m[2], description: m[3], venue: m[4] });
+}
+
+// 활동과 프로젝트 공통 형식: - 기간 · 내용 — 설명. [link](url)
+function parseEntry(line) {
+  const m = line.match(/^- (.+?) · (.+)$/);
+  if (!m) return null;
+  let rest = m[2];
+  let link;
+  const lm = rest.match(LINK_AT_END);
+  if (lm) {
+    link = lm[1];
+    rest = rest.slice(0, lm.index).trim();
+  }
+  const [text, ...desc] = rest.split(' — ');
+  return {
+    period: m[1],
+    text: text.trim(),
+    ...(desc.length ? { description: desc.join(' — ').trim() } : {}),
+    ...(link ? { link } : {}),
+  };
 }
 
 const activities = [];
@@ -180,52 +203,33 @@ for (const { line, at } of readRecord('activities', 'activities')) {
     section = h[1].trim();
     continue;
   }
-  const m = line.match(/^- (.+?) · (.+)$/);
-  if (!m || !section) {
+  const entry = parseEntry(line);
+  if (!entry || !section) {
     fail(at, section ? '형식이 맞지 않습니다. 예: - 2025 · Role, Org — One-line description. [link](https://...)' : '항목 위에 ## 섹션 제목이 필요합니다');
     continue;
   }
-  let rest = m[2];
-  let link;
-  const lm = rest.match(LINK_AT_END);
-  if (lm) {
-    link = lm[1];
-    rest = rest.slice(0, lm.index).trim();
-  }
-  const [text, ...desc] = rest.split(' — ');
-  activities.push({
-    id: `act-${activities.length + 1}`,
-    section,
-    period: m[1],
-    text: text.trim(),
-    ...(desc.length ? { description: desc.join(' — ').trim() } : {}),
-    ...(link ? { link } : {}),
-  });
+  activities.push({ id: recordId('act', activities.length + 1), section, ...entry });
 }
 
-// 홈 Projects 카드 (상세 페이지 바로가기). 형식은 활동과 같고 ## 섹션 없음
+// 홈 Projects 카드. 형식은 활동과 같고 ## 섹션 없음. 상세 본문은 같은 slug의 kind: project 노트
 const projects = [];
 for (const { line, at } of readRecord('projects', 'projects')) {
-  const m = line.match(/^- (.+?) · (.+)$/);
-  if (!m) {
-    fail(at, '형식이 맞지 않습니다. 예: - 2025 · Project Title — One-line description. [link](https://...)');
+  const entry = parseEntry(line);
+  if (!entry) {
+    fail(at, '형식이 맞지 않습니다. 예: - 2025 · Project Title: Subtitle');
     continue;
   }
-  let rest = m[2];
-  let link;
-  const lm = rest.match(LINK_AT_END);
-  if (lm) {
-    link = lm[1];
-    rest = rest.slice(0, lm.index).trim();
-  }
-  const [text, ...desc] = rest.split(' — ');
-  projects.push({
-    id: `proj-${String(projects.length + 1).padStart(3, '0')}`,
-    period: m[1],
-    text: text.trim(),
-    ...(desc.length ? { description: desc.join(' — ').trim() } : {}),
-    ...(link ? { link } : {}),
-  });
+  projects.push({ id: recordId('proj', projects.length + 1), ...entry });
+}
+
+// 카드 제목('MoonLiver: ...'의 앞쪽) → slug. src/lib/projects.ts와 같은 규칙
+const projectSlug = (text) => text.split(': ')[0].toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const cardSlugs = projects.map((p) => projectSlug(p.text));
+for (const d of docs.filter((d) => d.kind === 'project')) {
+  if (!cardSlugs.includes(d.slug)) fail(d.name, `slug "${d.slug}"인 프로젝트 카드가 없습니다 (가능: ${cardSlugs.join(', ')})`);
+}
+for (const [i, s] of cardSlugs.entries()) {
+  if (cardSlugs.indexOf(s) !== i) fail('me/records/projects.md', `카드 제목이 겹쳐 주소 "${s}"가 두 번 나옵니다`);
 }
 
 // ---------- 검사 결과 ----------
@@ -270,7 +274,7 @@ function report(a, b) {
   const added = [...b.keys()].filter((k) => !a.has(k));
   const removed = [...a.keys()].filter((k) => !b.has(k));
   const changed = [...b.keys()].filter((k) => a.has(k) && a.get(k) !== b.get(k));
-  console.log(`\n✓ 글 ${docs.length}개, 논문 ${publications.length}개, 활동 ${activities.length}개, 이미지 ${media.size}개\n`);
+  console.log(`\n✓ 글 ${docs.length}개, 논문 ${publications.length}개, 활동 ${activities.length}개, 프로젝트 ${projects.length}개, 이미지 ${media.size}개\n`);
   if (!added.length && !removed.length && !changed.length) return console.log('  바뀐 것 없음\n');
   for (const f of added) console.log(`  + ${f}`);
   for (const f of changed) console.log(`  ~ ${f}`);
