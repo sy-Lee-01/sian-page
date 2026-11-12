@@ -1,11 +1,27 @@
 ---
-import Base from '../layouts/Base.astro';
-import PublicationList from '../components/PublicationList.astro';
-import { Content as About } from '../content/about.md';
+import Base from "../layouts/Base.astro";
+import PublicationList from "../components/PublicationList.astro";
+import ProjectList from "../components/ProjectList.astro";
+import WritingList from "../components/WritingList.astro";
+import { getWriting } from "../lib/writing";
+import { sections } from "../site.config";
+import { url } from "../lib/url";
+import { Content as About } from "../content/about.md";
+
+// 홈에는 Experiments 글만 최근 3개
+const experiments = await getWriting("experiment");
 ---
 <Base lang="en">
-  <section class="about">
-    <About />
+  <section class="intro">
+    <div class="photo" aria-hidden="true"></div>
+    <div class="about"><About /></div>
   </section>
+  <ProjectList />
+  {experiments.length > 0 && (
+    <section>
+      <h2><a href={url(`/${sections.experiment.path}/`)}>{sections.experiment.title}</a></h2>
+      <WritingList kind="experiment" limit={3} />
+    </section>
+  )}
   <PublicationList />
 </Base>

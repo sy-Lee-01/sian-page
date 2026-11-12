@@ -203,6 +203,31 @@ for (const { line, at } of readRecord('activities', 'activities')) {
   });
 }
 
+// 홈 Projects 카드 (상세 페이지 바로가기). 형식은 활동과 같고 ## 섹션 없음
+const projects = [];
+for (const { line, at } of readRecord('projects', 'projects')) {
+  const m = line.match(/^- (.+?) · (.+)$/);
+  if (!m) {
+    fail(at, '형식이 맞지 않습니다. 예: - 2025 · Project Title — One-line description. [link](https://...)');
+    continue;
+  }
+  let rest = m[2];
+  let link;
+  const lm = rest.match(LINK_AT_END);
+  if (lm) {
+    link = lm[1];
+    rest = rest.slice(0, lm.index).trim();
+  }
+  const [text, ...desc] = rest.split(' — ');
+  projects.push({
+    id: `proj-${String(projects.length + 1).padStart(3, '0')}`,
+    period: m[1],
+    text: text.trim(),
+    ...(desc.length ? { description: desc.join(' — ').trim() } : {}),
+    ...(link ? { link } : {}),
+  });
+}
+
 // ---------- 검사 결과 ----------
 if (errors.length) {
   console.error(`\n✗ 공개하지 않았습니다. 고칠 곳 ${errors.length}개:\n`);
@@ -221,6 +246,7 @@ fs.mkdirSync(OUT.records, { recursive: true });
 for (const [name, content] of writingOut) fs.writeFileSync(path.join(OUT.writing, name), content);
 fs.writeFileSync(path.join(OUT.records, 'publications.yml'), publications.length ? toYaml(publications) : '[]\n');
 fs.writeFileSync(path.join(OUT.records, 'activities.yml'), activities.length ? toYaml(activities) : '[]\n');
+fs.writeFileSync(path.join(OUT.records, 'projects.yml'), projects.length ? toYaml(projects) : '[]\n');
 fs.writeFileSync(OUT.about, aboutOut);
 if (media.size) {
   fs.mkdirSync(OUT.media, { recursive: true });

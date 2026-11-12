@@ -2,8 +2,9 @@
 import type { Kind } from '../site.config';
 import { getWriting, writingUrl, formatDate } from '../lib/writing';
 
-interface Props { kind: Kind }
-const entries = await getWriting(Astro.props.kind);
+interface Props { kind: Kind; limit?: number }
+const all = await getWriting(Astro.props.kind);
+const entries = Astro.props.limit ? all.slice(0, Astro.props.limit) : all;
 ---
 {entries.length === 0 ? (
   <p class="empty">아직 글이 없습니다.</p>

@@ -35,4 +35,14 @@ const activities = defineCollection({
   }),
 });
 
-export const collections = { writing, publications, activities };
+const projects = defineCollection({
+  loader: file('src/content/records/projects.yml'),
+  schema: z.object({
+    period: z.string(),
+    text: z.string(),
+    description: z.string().optional(),
+    link: z.string().url().optional(),
+  }),
+});
+
+export const collections = { writing, publications, activities, projects };

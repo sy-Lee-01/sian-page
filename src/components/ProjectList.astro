@@ -1,0 +1,24 @@
+---
+import { getCollection } from "astro:content";
+// 홈 Projects 카드: me/records/projects.md (CV와 따로)
+const projects = (await getCollection("projects")).sort((x, y) => x.id.localeCompare(y.id));
+---
+{projects.length > 0 && (
+  <section>
+    <h2>Projects</h2>
+    <ul class="project-cards">
+      {projects.map(({ data }) => {
+        const card = (
+          <>
+            <div class="project-image" aria-hidden="true"></div>
+            <div class="project-copy">
+              <span class="project-title">{data.text}</span>
+              <span class="period">{data.period}</span>
+            </div>
+          </>
+        );
+        return <li>{data.link ? <a href={data.link}>{card}</a> : card}</li>;
+      })}
+    </ul>
+  </section>
+)}
