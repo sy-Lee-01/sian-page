@@ -85,3 +85,12 @@ article > .period { margin-bottom: 2rem; }
 .project-subtitle { display: block; color: var(--muted); font-size: 0.75rem; line-height: 1.3; margin-top: 0.15rem; }
 /* 날짜는 카드 아래쪽에 붙임. 위 글과는 최소 .75rem */
 .project-copy .period { margin-top: auto; padding-top: 0.75rem; }
+
+/* Projects 탭 리스트: 썸네일 가로는 홈 사진 자리와 같은 180px, 세로는 카드 그림과 같은 112px. 항목 사이 구분선 */
+.project-list { list-style: none; padding: 0; margin: 0; }
+.project-list li { border-bottom: 1px solid var(--line); }
+.project-list li:first-child { border-top: 1px solid var(--line); }
+.project-list a { display: flex; gap: 1.5rem; align-items: flex-start; padding: 1rem 0; color: inherit; text-decoration: none; }
+.project-thumb { flex: 0 0 180px; height: 112px; background: var(--surface-alt); }
+.project-list .project-title { font-size: inherit; }
+.project-list .period { margin-top: 0.5rem; }

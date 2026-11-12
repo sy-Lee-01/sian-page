@@ -1,8 +1,24 @@
 ---
 import Base from '../../layouts/Base.astro';
-import ProjectList from '../../components/ProjectList.astro';
+import { getProjects } from '../../lib/projects';
+
+// Projects 탭: 다른 탭처럼 리스트. 왼쪽 썸네일(지금은 회색 자리), 항목 사이 구분선
+const projects = await getProjects();
 ---
 <Base lang="en" title="Projects">
   <h1>Projects</h1>
-  <ProjectList heading={false} />
+  <ul class="project-list">
+    {projects.map((p) => (
+      <li>
+        <a href={p.href}>
+          <div class="project-thumb" aria-hidden="true"></div>
+          <div>
+            <span class="project-title">{p.title}</span>
+            {p.subtitle && <span class="project-subtitle">{p.subtitle}</span>}
+            <span class="period">{p.period}</span>
+          </div>
+        </a>
+      </li>
+    ))}
+  </ul>
 </Base>

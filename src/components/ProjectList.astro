@@ -2,14 +2,12 @@
 import { getProjects } from '../lib/projects';
 import { url } from '../lib/url';
 
-// 홈과 Projects 탭의 카드. 누르면 상세 페이지로
-interface Props { heading?: boolean }
-const { heading = true } = Astro.props;
+// 홈 Projects 카드. 누르면 상세 페이지로
 const projects = await getProjects();
 ---
 {projects.length > 0 && (
   <section>
-    {heading && <h2><a href={url('/projects/')}>Projects</a></h2>}
+    <h2><a href={url('/projects/')}>Projects</a></h2>
     <ul class="project-cards">
       {projects.map((p) => (
         <li>
