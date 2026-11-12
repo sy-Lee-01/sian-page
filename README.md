@@ -1,4 +1,4 @@
-# sian-theme
+# sian-page
 
 Obsidian 볼트에서 쓰고, publish로 내보내는 연구자 포트폴리오 + 블로그. Astro로 만든다.
 
