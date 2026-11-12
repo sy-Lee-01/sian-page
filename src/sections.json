@@ -1,4 +1,5 @@
 {
+  "project": { "path": "projects", "title": "Projects" },
   "experiment": { "path": "experiments", "title": "Experiments" },
   "blog": { "path": "blog", "title": "Blog" },
   "note": { "path": "notes", "title": "Notes" }

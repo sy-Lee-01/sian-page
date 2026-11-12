@@ -5,7 +5,7 @@ import { sections } from '../../site.config';
 import { formatDate } from '../../lib/writing';
 
 export async function getStaticPaths() {
-  const entries = await getCollection('writing');
+  const entries = await getCollection('writing', (e) => e.data.kind !== 'project');
   return entries.map((entry) => ({
     params: { section: sections[entry.data.kind].path, slug: entry.id },
     props: { entry },

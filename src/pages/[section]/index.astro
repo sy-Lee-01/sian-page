@@ -4,7 +4,8 @@ import WritingList from '../../components/WritingList.astro';
 import { sections, kinds } from '../../site.config';
 
 export function getStaticPaths() {
-  return kinds.map((kind) => ({
+  // Projects는 카드 목록이라 src/pages/projects/ 에서 따로 만든다
+  return kinds.filter((kind) => kind !== 'project').map((kind) => ({
     params: { section: sections[kind].path },
     props: { kind },
   }));

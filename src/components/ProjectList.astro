@@ -1,28 +1,28 @@
 ---
-import { getCollection } from "astro:content";
-// 홈 Projects 카드: me/records/projects.md (CV와 따로)
-const projects = (await getCollection("projects")).sort((x, y) => x.id.localeCompare(y.id));
+import { getProjects } from '../lib/projects';
+import { url } from '../lib/url';
+
+// 홈과 Projects 탭의 카드. 누르면 상세 페이지로
+interface Props { heading?: boolean }
+const { heading = true } = Astro.props;
+const projects = await getProjects();
 ---
 {projects.length > 0 && (
   <section>
-    <h2>Projects</h2>
+    {heading && <h2><a href={url('/projects/')}>Projects</a></h2>}
     <ul class="project-cards">
-      {projects.map(({ data }) => {
-        // 'MoonLiver: 3D Surgical Planning Solution' → 제목 MoonLiver, 소제목 뒤쪽
-        const [title, ...rest] = data.text.split(': ');
-        const subtitle = rest.join(': ');
-        const card = (
-          <>
+      {projects.map((p) => (
+        <li>
+          <a href={p.href}>
             <div class="project-image" aria-hidden="true"></div>
             <div class="project-copy">
-              <span class="project-title">{title}</span>
-              {subtitle && <span class="project-subtitle">{subtitle}</span>}
-              <span class="period">{data.period}</span>
+              <span class="project-title">{p.title}</span>
+              {p.subtitle && <span class="project-subtitle">{p.subtitle}</span>}
+              <span class="period">{p.period}</span>
             </div>
-          </>
-        );
-        return <li>{data.link ? <a href={data.link}>{card}</a> : card}</li>;
-      })}
+          </a>
+        </li>
+      ))}
     </ul>
   </section>
 )}
