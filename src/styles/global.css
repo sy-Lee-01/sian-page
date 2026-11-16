@@ -5,6 +5,7 @@
   --bg: #ffffff;
   --placeholder: #e4e4e7;
   --surface-alt: #f7f7f8;
+  --card-hover: #eeeef0;
   --link: #1a1a1a;
   --measure: 38rem;
   font-family: system-ui, -apple-system, "Apple SD Gothic Neo", sans-serif;
@@ -13,7 +14,7 @@
   background: var(--bg);
 }
 @media (prefers-color-scheme: dark) {
-  :root { --text: #e8e8e8; --muted: #9a9a9a; --bg: #161616; --line: #3a3c42; --placeholder: #2c2c30; --surface-alt: #1f1f22; --link: #e8e8e8; }
+  :root { --text: #e8e8e8; --muted: #9a9a9a; --bg: #161616; --line: #3a3c42; --placeholder: #2c2c30; --surface-alt: #1f1f22; --card-hover: #26262a; --link: #e8e8e8; }
 }
 html[lang="ko"] { word-break: keep-all; }
 
@@ -30,8 +31,11 @@ a:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
 
 .site-header { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; margin-bottom: 3rem; }
 .site-header nav { display: flex; gap: 1.1rem; font-size: 0.9rem; }
-.site-header nav a { text-decoration: none; color: var(--muted); }
-.site-header nav a[aria-current="page"] { color: var(--text); }
+.site-header nav a { position: relative; text-decoration: none; color: var(--muted); transition: color 0.2s ease; }
+/* 메뉴: 마우스를 올리면 검정으로 바뀌고 밑줄이 왼쪽에서 그어짐. 현재 페이지는 그 상태로 고정 */
+.site-header nav a::after { content: ""; position: absolute; left: 0; bottom: -2px; width: 100%; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform 0.25s ease; }
+.site-header nav a:hover, .site-header nav a:focus-visible, .site-header nav a[aria-current="page"] { color: var(--text); }
+.site-header nav a:hover::after, .site-header nav a:focus-visible::after, .site-header nav a[aria-current="page"]::after { transform: scaleX(1); }
 .site-name { display: block; font-size: 1.2rem; font-weight: 500; text-decoration: none; }
 .site-fullname { display: block; color: var(--muted); font-size: 0.8rem; }
 
@@ -63,6 +67,10 @@ article > .period { margin-bottom: 2rem; }
 .intro .photo { flex: 0 0 180px; height: 225px; background: var(--placeholder); }
 .intro .about { flex: 1; min-width: 0; }
 .intro .about p:first-child { margin-top: 0; }
+/* 소개글 밑 CV 바로가기: 글씨와 화살표. 마우스를 올리면 화살표가 오른쪽으로 조금 움직임 */
+.cv-link { display: inline-block; text-decoration: none; }
+.cv-link span { display: inline-block; transition: transform 0.2s ease; }
+.cv-link:hover span, .cv-link:focus-visible span { transform: translateX(3px); }
 @media (max-width: 640px) {
   .intro { flex-direction: column; gap: 1.5rem; }
   .intro .photo { flex-basis: auto; width: 180px; }
@@ -79,7 +87,11 @@ article > .period { margin-bottom: 2rem; }
 .project-cards a { display: flex; flex-direction: column; flex: 1; min-height: 0; color: inherit; text-decoration: none; }
 /* 그림 높이는 고정(112px, 처음 80px의 1.4배), 제목 줄 수가 달라도 그림 크기는 같게. 그림은 연한 회색, 글은 흰 배경 */
 .project-image { flex: 0 0 112px; background: var(--surface-alt); border-bottom: 1px solid var(--line); }
-.project-copy { flex: 1; display: flex; flex-direction: column; padding: 10px 12px; background: var(--bg); }
+.project-copy { flex: 1; display: flex; flex-direction: column; padding: 10px 12px; background: var(--bg); transition: background-color 0.2s ease; }
+/* 카드에 마우스를 올리면 배경이 살짝 진해짐 */
+.project-image { transition: background-color 0.2s ease; }
+.project-cards a:hover .project-copy, .project-cards a:focus-visible .project-copy { background: var(--surface-alt); }
+.project-cards a:hover .project-image, .project-cards a:focus-visible .project-image { background: var(--card-hover); }
 .project-title { display: block; font-size: 0.8rem; line-height: 1.25; }
 /* 소제목은 날짜와 같은 글씨 */
 .project-subtitle { display: block; color: var(--muted); font-size: 0.75rem; line-height: 1.3; margin-top: 0.15rem; }

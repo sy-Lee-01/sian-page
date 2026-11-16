@@ -10,9 +10,12 @@ interface Props {
 const { lang, title } = Astro.props;
 const pageTitle = title ? `${title} — ${site.name}` : site.name;
 const path = Astro.url.pathname;
+// 메뉴 순서: CV 다음 sections.json 순서. menu: false인 섹션(Notes)은 메뉴에서 뺀다
 const nav = [
-  ...Object.values(sections).map((s) => ({ href: url(`/${s.path}/`), label: s.title })),
   { href: url('/cv/'), label: 'CV' },
+  ...Object.values(sections)
+    .filter((s) => !('menu' in s && s.menu === false))
+    .map((s) => ({ href: url(`/${s.path}/`), label: s.title })),
 ];
 ---
 <!doctype html>

@@ -14,7 +14,10 @@ const experiments = await getWriting("experiment");
 <Base lang="en">
   <section class="intro">
     <div class="photo" aria-hidden="true"></div>
-    <div class="about"><About /></div>
+    <div class="about">
+      <About />
+      <a href={url('/cv/')} class="cv-link">CV <span aria-hidden="true">→</span></a>
+    </div>
   </section>
   <ProjectList />
   {experiments.length > 0 && (
