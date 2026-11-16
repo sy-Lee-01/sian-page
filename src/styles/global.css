@@ -30,7 +30,8 @@ a { color: var(--link); text-underline-offset: 0.2em; }
 a:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
 
 .site-header { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; margin-bottom: 3rem; }
-.site-header nav { display: flex; gap: 1.1rem; font-size: 0.9rem; }
+/* 메뉴 칸이 헤더 높이만큼 늘어나지 않게 위에 붙임(밑줄이 칸 바닥에 그어짐) */
+.site-header nav { display: flex; align-items: flex-start; gap: 1.1rem; font-size: 0.9rem; }
 /* 줄 높이를 1로 줄여 박스 아래가 글자 바로 아래에 오게 함. 줄인 만큼 위 여백으로 글자 위치 유지 */
 .site-header nav a { position: relative; line-height: 1; padding-top: 0.35em; text-decoration: none; color: var(--muted); transition: color 0.2s ease; }
 /* 메뉴: 마우스를 올리면 검정으로 바뀌고 밑줄이 왼쪽에서 그어짐. 현재 페이지는 그 상태로 고정 */
