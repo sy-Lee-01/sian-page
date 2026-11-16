@@ -33,7 +33,8 @@ a:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
 .site-header nav { display: flex; gap: 1.1rem; font-size: 0.9rem; }
 .site-header nav a { position: relative; text-decoration: none; color: var(--muted); transition: color 0.2s ease; }
 /* 메뉴: 마우스를 올리면 검정으로 바뀌고 밑줄이 왼쪽에서 그어짐. 현재 페이지는 그 상태로 고정 */
-.site-header nav a::after { content: ""; position: absolute; left: 0; bottom: -2px; width: 100%; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform 0.25s ease; }
+/* 밑줄 위치: 글자 바로 아래(기준선 아래 약 .35em). 링크 기본 밑줄(.2em)보다는 조금 아래 */
+.site-header nav a::after { content: ""; position: absolute; left: 0; bottom: 0.15em; width: 100%; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform 0.25s ease; }
 .site-header nav a:hover, .site-header nav a:focus-visible, .site-header nav a[aria-current="page"] { color: var(--text); }
 .site-header nav a:hover::after, .site-header nav a:focus-visible::after, .site-header nav a[aria-current="page"]::after { transform: scaleX(1); }
 .site-name { display: block; font-size: 1.2rem; font-weight: 500; text-decoration: none; }
@@ -68,7 +69,8 @@ article > .period { margin-bottom: 2rem; }
 .intro .about { flex: 1; min-width: 0; }
 .intro .about p:first-child { margin-top: 0; }
 /* 소개글 밑 CV 바로가기: 글씨와 화살표. 마우스를 올리면 화살표가 오른쪽으로 조금 움직임 */
-.cv-link { display: inline-block; text-decoration: none; }
+/* 본문과의 간격: 문단 간격(.85rem)의 1.5배가 되도록 .425rem 더함 */
+.cv-link { display: inline-block; margin-top: 0.425rem; text-decoration: none; }
 .cv-link span { display: inline-block; transition: transform 0.2s ease; }
 .cv-link:hover span, .cv-link:focus-visible span { transform: translateX(3px); }
 @media (max-width: 640px) {
