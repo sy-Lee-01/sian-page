@@ -74,9 +74,9 @@ article > .period { margin-bottom: 2rem; }
 .site-footer { display: flex; gap: 1rem; margin-top: 4rem; font-size: 0.9rem; }
 .site-footer a { color: var(--muted); }
 
-/* 홈: 사진(지금은 회색 자리) 왼쪽, about 오른쪽 */
+/* 홈: 사진 왼쪽(피그마 230x225), about 오른쪽 */
 .intro { display: flex; gap: 2.5rem; align-items: flex-start; }
-.intro .photo { flex: 0 0 180px; height: 225px; background: var(--placeholder); }
+.intro .photo { flex: 0 0 230px; width: 230px; height: 225px; object-fit: cover; background: var(--placeholder); }
 .intro .about { flex: 1; min-width: 0; }
 .intro .about p:first-child { margin-top: 0; }
 /* 소개글 밑 CV 바로가기: 글씨와 화살표. 마우스를 올리면 화살표가 오른쪽으로 조금 움직임 */
@@ -86,7 +86,7 @@ article > .period { margin-bottom: 2rem; }
 .cv-link:hover span, .cv-link:focus-visible span { transform: translateX(3px); }
 @media (max-width: 640px) {
   .intro { flex-direction: column; gap: 1.5rem; }
-  .intro .photo { flex-basis: auto; width: 180px; }
+  .intro .photo { flex-basis: auto; }
 }
 
 /* 홈 Projects 카드: 넓은 화면에서 5열, 세로는 사진 자리의 0.8배(180px). 위 회색 그림, 아래 설명 박스 */

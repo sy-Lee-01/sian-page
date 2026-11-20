@@ -15,7 +15,7 @@ const experiments = await getWriting("experiment");
 <Base lang="en">
   <div class="doodles" set:html={doodles} />
   <section class="intro">
-    <div class="photo" aria-hidden="true"></div>
+    <img class="photo" src={url('/photo.jpg')} alt="Sian" width="230" height="225" />
     <div class="about">
       <About />
       <a href={url('/cv/')} class="cv-link">CV <span aria-hidden="true">→</span></a>
