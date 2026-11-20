@@ -7,11 +7,13 @@ import { getWriting } from "../lib/writing";
 import { sections } from "../site.config";
 import { url } from "../lib/url";
 import { Content as About } from "../content/about.md";
+import doodles from "../assets/doodles.svg?raw";
 
 // 홈에는 Experiments 글만 최근 3개
 const experiments = await getWriting("experiment");
 ---
 <Base lang="en">
+  <div class="doodles" set:html={doodles} />
   <section class="intro">
     <div class="photo" aria-hidden="true"></div>
     <div class="about">
