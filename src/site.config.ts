@@ -6,9 +6,8 @@ export const site = {
   fullName: 'Seoyeon Lee | 이서연',
   description: 'HCI researcher studying how people work with generative AI.',
   links: [
-    { label: 'Email', href: 'mailto:hello@example.com' },
+    { label: 'Email', href: 'mailto:bluecu1216@dgist.ac.kr' },
     { label: 'GitHub', href: 'https://github.com/example' },
-    { label: 'Google Scholar', href: 'https://scholar.google.com' },
   ],
 };
 
