@@ -7,7 +7,8 @@ export const site = {
   description: 'HCI researcher studying how people work with generative AI.',
   links: [
     { label: 'Email', href: 'mailto:bluecu1216@dgist.ac.kr' },
-    { label: 'GitHub', href: 'https://github.com/example' },
+    { label: 'GitHub', href: 'https://github.com/sy-Lee-01' },
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/seoyeon-sian-lee' },
   ],
 };
 
